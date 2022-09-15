@@ -1,0 +1,60 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int win(int n)
+{
+    switch(n)
+    {
+        case 0:
+            return 6;
+        case 1:
+            return 6;
+        case 2:
+            return 5;
+        case 3:
+            return 4;
+        case 4:
+            return 3;
+        case 5:
+            return 2;
+        case 6:
+            return 1;
+    }
+}
+
+vector<int> solution(vector<int> lottos, vector<int> win_nums) {
+    vector<int> answer;
+   
+    sort(lottos.begin(), lottos.end());
+    sort(win_nums.begin(), win_nums.end());
+    
+    int min = 0;
+    int max = 0;
+    
+    
+    for(int i = 0; i < lottos.size(); i++)
+    {
+        if(lottos[i] != 0)
+        {
+            for(int j = 0; j <  win_nums.size(); j++)
+            {
+                if(lottos[i] == win_nums[j])
+                {
+                    min++;
+                    break;
+                }
+            }
+        }
+        else max++;
+    }
+    
+    max += min;
+
+    answer.push_back(win(max));
+    answer.push_back(win(min));
+
+    return answer;
+}

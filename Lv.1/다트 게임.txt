@@ -1,0 +1,71 @@
+#include <string>
+#include <vector>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cstdio>
+using namespace std;
+
+int solution(string dartResult) {
+    int answer = 0;
+    
+    vector<int> v;
+    string s = "";
+    for(int i = 0; i < dartResult.size(); i++)
+    {
+        // 숫자 찾기
+        if(isdigit(dartResult[i]))
+        {
+            s = dartResult[i];
+            for(int j = i+1; i < dartResult.size(); j++)
+            {
+                if(isdigit(dartResult[j]))
+                {
+                    s += dartResult[j];
+                    i++;
+                }
+                else break;
+            }
+            
+             v.push_back(stoi(s));
+        }
+        
+       // 보너스 찾기
+        else if(isalpha(dartResult[i]) != 0)
+        {
+            if(dartResult[i] == 'D')
+                v.back() = pow(v.back(), 2);
+            else if(dartResult[i] == 'T')
+                 v.back() = pow(v.back(), 3);
+        }
+        
+        // 옵션
+        else
+        {
+            if(dartResult[i] == '*')
+            {
+                if(v.size() > 1)
+                {
+                    for(int j = v.size() - 2; j < v.size(); j++)
+                    {
+                        v[j] *= 2;
+                    }
+                }
+                else v.back() *= 2;
+                    
+            }
+            else if(dartResult[i] == '#')
+            {
+                 v.back() *= -1;
+            }
+        }
+    }
+    
+    for(int i = 0; i < v.size(); i++)
+    {
+        
+        answer += v[i];
+    }
+    
+    return answer;
+}

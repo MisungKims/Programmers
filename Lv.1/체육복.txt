@@ -1,0 +1,63 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) {
+    int answer = 0;
+    
+    sort(lost.begin(), lost.end());
+    sort(reserve.begin(), reserve.end());
+
+    vector<bool> v2;
+    
+    for(int i = 0; i < n; i++)
+    {
+        v2.push_back(true);
+    }
+    
+    for(int i = 0; i < lost.size(); i++)
+    {
+        v2[lost[i] - 1] = false;
+    }
+
+    int index = 0;
+    
+    for(int i = 0; i < reserve.size(); i++)
+    {
+        if(find(lost.begin(), lost.end(), reserve[i]) != lost.end()) 
+        {
+                v2[reserve[i] - 1] = true;
+        }
+        else
+        {
+             for(int j = index; j < lost.size(); j++)
+        {
+           if(v2[lost[j] - 1] == false)
+           {
+                if(lost[j] == reserve[i] - 1)
+                {
+                    v2[lost[j] - 1] = true;
+                    index++;
+                    break;
+                }
+                else if(lost[j] == reserve[i] + 1)
+                {
+                    v2[lost[j] - 1] = true;
+                    index++;
+                    break;
+                }
+           }
+        }
+        }
+       
+    }
+    
+     for(int i = 0; i < n; i++)
+    {
+         if(v2[i] == true) answer++;
+    }
+    
+    return answer;
+}

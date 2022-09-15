@@ -1,0 +1,17 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+string solution(vector<string> seoul) {
+    string answer = "";
+    
+    answer += "김서방은 ";
+ 
+ if(find(seoul.begin(), seoul.end(), "Kim") != seoul.end()) {
+      answer += to_string(find(seoul.begin(), seoul.end(), "Kim") - seoul.begin()); 
+ }
+    answer += "에 있다";
+    
+    return answer;
+}

@@ -1,0 +1,53 @@
+#include <string>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<int> answers) {
+    vector<int> answer;
+ 
+    int score[3] = {0, 0, 0};
+    
+    int arr1[5] = {1,2,3,4,5};
+    int arr2[8] = {2,1,2,3,2,4,2,5};
+    int arr3[10] = {3,3,1,1,2,2,4,4,5,5};
+    
+    int j1 = 0, j2 = 0, j3 = 0;
+    for(int i = 0; i < answers.size(); i++)
+    {
+        if(answers[i] == arr1[j1]) score[0]++;
+        if(j1 == 4) j1 = 0;
+        else j1++;
+        
+        if(answers[i] == arr2[j2]) score[1]++;
+        if(j2 == 7) j2 = 0;
+        else j2++;
+        
+        if(answers[i] == arr3[j3]) score[2]++;
+        if(j3 == 9) j3 = 0;
+        else j3++;
+    }
+
+    int max = 0;
+    for(int i = 0; i < 3; i++)
+    {
+        cout << score[i] << " ";
+        if(score[i] > max)
+        {
+            max = score[i];
+       }
+    }
+    
+    for(int i = 0; i < 3; i++)
+    {
+        if(score[i] == max)
+        {
+            answer.push_back(i + 1);
+        }
+    }
+  
+   sort(answer.begin(), answer.end());
+    
+    return answer;
+}

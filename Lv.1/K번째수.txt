@@ -1,0 +1,34 @@
+#include <string>
+#include <vector>
+#include<algorithm>
+#include<iostream>
+
+using namespace std;
+
+int calc(vector<int> array, int i, int j, int k)
+{
+    vector<int> newArr;
+    
+    int c = 0;
+    for(int n = i-1; n <= j-1; n++)
+    {
+        newArr.push_back(array[n]);
+    }
+    
+    sort(newArr.begin(), newArr.end());
+    
+    return newArr[k-1];
+}
+
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
+    
+    int i, j, k;
+    
+    for(int i = 0; i < commands.size(); i++)
+    {
+        answer.push_back(calc(array, commands[i][0], commands[i][1], commands[i][2]));
+    }
+    
+    return answer;
+}

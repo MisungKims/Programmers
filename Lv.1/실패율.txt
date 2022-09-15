@@ -1,0 +1,56 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+vector<int> solution(int N, vector<int> stages) {
+    vector<int> answer;
+    
+    sort(stages.begin(), stages.end());
+    
+    vector<double> fail(N);
+    fill(fail.begin(), fail.end(), 0);
+    
+    multimap<double, int> m;
+    
+    int idx = stages[0];
+    int sum = stages.size();
+    int son = 1;
+    
+    for(int i = 1; i < stages.size(); i++)
+    {
+        if(stages[i] == idx)
+        {
+            son++;
+            if(i == stages.size()-1)
+            {
+                if(idx > N) break;
+                fail[idx-1] = (double)son / (double)sum;
+            }
+        }
+        else
+        {
+            if(idx > N) break;
+            fail[idx-1] = (double)son / (double)sum;
+
+            sum -= son;
+            son = 1;
+            idx = stages[i];
+        } 
+    }
+    
+    for(int i = 0; i < N; i++)
+    {
+       m.insert({fail[i] * -1, i+1});
+    }
+    
+     for (auto iter : m) 
+    {
+        answer.push_back(iter.second);
+    }
+    
+    return answer;
+}

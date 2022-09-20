@@ -11,16 +11,8 @@ vector<int> solution(int brown, int yellow) {
     {
         if (yellow % i == 0)
         {
-            if (yellow / i < i)
-            {
-                weight = i;
-                height = yellow / i;
-            }
-            else
-            {
-                weight = yellow / i;
-                height = i;
-            }
+            weight = yellow / i;
+            height = i;
 
             if ((weight + 2) * 2 + height * 2 == brown)
             {
